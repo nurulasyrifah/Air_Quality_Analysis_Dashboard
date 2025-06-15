@@ -31,9 +31,14 @@ st.markdown(
     """, unsafe_allow_html=True)
 
 # --- Load Data ---
+import os
+import pandas as pd
+import streamlit as st
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv("all_data_cleaned.csv", parse_dates=['datetime'])
+    file_path = os.path.join(os.path.dirname(__file__), "all_data_cleaned.csv")
+    df = pd.read_csv(file_path, parse_dates=['datetime'])
     df['hour'] = df['datetime'].dt.hour
     df['month'] = df['datetime'].dt.month
     return df
